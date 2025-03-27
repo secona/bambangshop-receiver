@@ -85,5 +85,7 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. `RwLock` allows multiple readers and one writer at a time. This is efficient for scenarios where reading is more frequent than writing. `Mutex` on the other hand only allows one read at a time, leading to unnecessary blocking and performance bottlenecks. Since notifications are mostly read, `RwLock` improves concurrency.
+2. Rust enforces strict safety rules to prevent data races and ensure thread safety. This means, it forces developers to handle concurrency properly using `Mutex`, `RwLock`, or atomic types, making programs more reliable and less prone to race conditions.
 
 #### Reflection Subscriber-2
