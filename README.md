@@ -59,25 +59,25 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   Open another new terminal, edit `ROCKET_PORT` in `.env` to `8003`, then execute `cargo run`.
 
 ## Mandatory Checklists (Subscriber)
--   [ ] Clone https://gitlab.com/ichlaffterlalu/bambangshop-receiver to a new repository.
+-   [x] Clone https://gitlab.com/ichlaffterlalu/bambangshop-receiver to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create SubscriberRequest model struct.`
-    -   [ ] Commit: `Create Notification database and Notification repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Notification repository.`
-    -   [ ] Commit: `Implement list_all_as_string function in Notification repository.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
+    -   [x] Commit: `Create Notification model struct.`
+    -   [x] Commit: `Create SubscriberRequest model struct.`
+    -   [x] Commit: `Create Notification database and Notification repository struct skeleton.`
+    -   [x] Commit: `Implement add function in Notification repository.`
+    -   [x] Commit: `Implement list_all_as_string function in Notification repository.`
+    -   [x] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
 -   **STAGE 3: Implement services and controllers**
-    -   [ ] Commit: `Create Notification service struct skeleton.`
-    -   [ ] Commit: `Implement subscribe function in Notification service.`
-    -   [ ] Commit: `Implement subscribe function in Notification controller.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
-    -   [ ] Commit: `Implement receive_notification function in Notification service.`
-    -   [ ] Commit: `Implement receive function in Notification controller.`
-    -   [ ] Commit: `Implement list_messages function in Notification service.`
-    -   [ ] Commit: `Implement list function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
+    -   [x] Commit: `Create Notification service struct skeleton.`
+    -   [x] Commit: `Implement subscribe function in Notification service.`
+    -   [x] Commit: `Implement subscribe function in Notification controller.`
+    -   [x] Commit: `Implement unsubscribe function in Notification service.`
+    -   [x] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [x] Commit: `Implement receive_notification function in Notification service.`
+    -   [x] Commit: `Implement receive function in Notification controller.`
+    -   [x] Commit: `Implement list_messages function in Notification service.`
+    -   [x] Commit: `Implement list function in Notification controller.`
+    -   [x] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
 
 ## Your Reflections
 This is the place for you to write reflections:
@@ -85,7 +85,10 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
-1. `RwLock` allows multiple readers and one writer at a time. This is efficient for scenarios where reading is more frequent than writing. `Mutex` on the other hand only allows one read at a time, leading to unnecessary blocking and performance bottlenecks. Since notifications are mostly read, `RwLock` improves concurrency.
+1. `RwLock` allows multiple readers and one writer at the same time, whereas `Mutex` allows only one reader and one writer at a time. Since the majority of access to `NOTIFICATIONS` involve reading, `RwLock` is preferred over `Mutex` to enable concurrent reads and improve performance.
 2. Rust enforces strict safety rules to prevent data races and ensure thread safety. This means, it forces developers to handle concurrency properly using `Mutex`, `RwLock`, or atomic types, making programs more reliable and less prone to race conditions.
 
 #### Reflection Subscriber-2
+1. Yes, I have. The `src/lib.rs` defines shared configuration for the application. It is also used to define helpers, such as `compose_error_response`, that is used everywhere in the application. I also learned that `lazy_static` is used to create global, lazily initialized instances, such as `REQWEST_INSTANCE` and `APP_CONFIG`. This ensures they are only initialized once and shared efficiently, improving performance. Overall, it helped me understand how Rocket-based web application are structured.
+2. The observer pattern makes it easy to add more subscribers because they simply only need to subscribe through the subscribe endpoint in the Main application. Once subscribed, they automatically receive notifications without having to requesting manually. Additionally, the subscriber instances does not need to be BambangShop Receiver, it can be any appliation as long as it follows the data structure provided by BambangShop. However, spawning multiple instances of the Main app can add complexity, as subscriber data need to be shared between instances, possibly requiring a shared database or synchronization.
+3. Yes, I have. Having the documentation in Postman is particularly useful for the group project, as it allows us to clearly define each endpoint, making it easier for other team members to understand and use them. Writing tests in Postman also helps ensure that our API behaves as expected, catching potential issues early and improving overall reliability. These features streamline collaboration and debugging, making development more efficient.
